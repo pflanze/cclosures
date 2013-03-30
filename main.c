@@ -89,7 +89,7 @@ DEFCLOSURE(void, printlis,
 	SELFCALL(printlis, origlis, i, origlis);
     } else {
 	printf("%s element %i is value: '%s'\n",
-	       env->prefix, i, CAST(char*,lis->car));
+	       env->prefix, i, UNSAFECAST(char*,lis->car));
 	SELFCALL(printlis, lis->cdr, i+1, origlis);
     }
 }
