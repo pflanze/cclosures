@@ -51,6 +51,27 @@
 	memcpy(varname,&let_closure_tmp, sizeof(struct clname##_closure)); \
     }
 
+/*
+  stack-allocate a closure (initialization of the env is separate on
+  purpose: allocate before calling functions that return closures!)
+*/
+#define ALLOCA_CLOSURE(varname, clname)		\
+    struct clname##_closure varname = { \
+	clname##_proc			\
+    };
+
+/*
+  initialize a pre-allocated closure. Give *ptr for pointers.  Call
+  for every field.
+  Instead of:
+      res->env.a = a;
+  this leads to:
+      SET_CLOSURE(res, a);
+*/
+#define SET_CLOSURE(cl, field)		\
+    (cl)->env.field = field;
+
+
 #define RETURN_CLOSURE(clname, membernames,...)			      \
     LET_CLOSURE(return_closure_tmp, clname, membernames, __VA_ARGS__);	\
     return return_closure_tmp;
