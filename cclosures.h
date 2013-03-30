@@ -8,6 +8,7 @@
 			     __VA_ARGS__);				\
 	const struct Name##_env env;					\
     };									\
+    typedef struct Name##_closure* Name##_closure_t;			\
     STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__); \
     STATIC const struct Name##_closure Name##_flat = { Name##_proc, {} }; \
     STATIC const struct Name##_closure* const Name = &(Name##_flat);	\
@@ -25,6 +26,7 @@
 		       __VA_ARGS__);					\
 	struct Name##_env env;						\
     };									\
+    typedef struct Name##_closure* Name##_closure_t;			\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 // #define IMPLCLOSURE  needed?
