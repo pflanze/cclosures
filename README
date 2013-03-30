@@ -1,0 +1,22 @@
+Infrastructure to write programs with closures in C.
+
+Usage:
+
+Include cclosures.h, then in all places where functions are to be
+passed that might be closures, a closure struct is passed instead,
+called with CALL, and the functions to be passed are defined using
+DEFN (if they are not a closure, i.e. don't have an environment [but
+to be passed in places where closures might be passed]), or DEFCLOSURE
+(if they do need to carry an environment).
+
+SELFCALL is used for self recursion. [Why again?]
+
+For recursive/mutual definitions (letrec), instead of DEFN, use DECLN
+for the declaration and then IMPLN for the implementation of the
+function [same thing for CLOSURE missing yet?].
+
+Functions defined using DEFN/DECLN don't need to be
+instantiated. Closures are allocated/instantiated using LET_CLOSURE,
+or RETURN_CLOSURE. They are allocated using malloc.
+
+See main.c for an example.
