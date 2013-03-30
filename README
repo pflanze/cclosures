@@ -19,4 +19,12 @@ Functions defined using DEFN/DECLN don't need to be
 instantiated. Closures are allocated/instantiated using LET_CLOSURE,
 or RETURN_CLOSURE. They are allocated using malloc.
 
+Use DEFINTERFACE to declare the 'type class' of a function/closure
+that you use in some place (like say the type of the functions
+accepted by a map function). This declares the type of the function
+pointer, but leaves its environment at a 'generic' "struct
+Some_env". Although, values have to be cast (use the CAST macro) to
+that type, so there's no type checking in place to verify that you're
+actually casting a cclosure function or closure to that type.
+
 See main.c for an example.

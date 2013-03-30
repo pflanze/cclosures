@@ -87,6 +87,13 @@ struct Some_env {
 };
 
 
+#define DEFINTERFACE(Name_t,Procreturntype,...)			\
+    typedef struct Name_t##struct {				\
+	Procreturntype(*proc)(struct Some_env*, __VA_ARGS__);	\
+	struct Some_env env;					\
+    } *Name_t;
+
+
 #define NEW(type) malloc(sizeof(type)) // ç
 
 #define CAST(type,val) (type)(val)
