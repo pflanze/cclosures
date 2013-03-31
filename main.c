@@ -95,7 +95,7 @@ DEFCLOSURE(void, printlis,
 	SELFCALL(printlis, origlis, i, origlis);
     } else {
 	printf("%s element %i is value: '%s'\n",
-	       env->prefix, i, UNSAFECAST(char*,lis->car));
+	       env->prefix, i, CAST(char*,lis->car));
 	SELFCALL(printlis, lis->cdr, i+1, origlis);
     }
 }
@@ -192,7 +192,7 @@ DEFN(void, printlist, show_t show, pair_t* lis) {
     SET_CLOSURE(&pitem,bufferh);
 
     printf("[");
-    CALL(for_each, &pitem, lis);
+    CALL(for_each, VOID(&pitem), lis);
     printf("]\n");
 
     /* don't need to deallocate pitem, but: */
@@ -214,16 +214,16 @@ int main (int argc, char** argv) {
 	for (i=argc-1; i>=1; i--) {
 	    lis= cons(argv[i], lis);
 	}
-	printf ("Original list (strings): "); CALL(printlist, show_string, lis);
+	printf ("Original list (strings): "); CALL(printlist, VOID(show_string), lis);
 
 	{
-	    pair_t* lis1= CALL(map, parse_long, lis);
-	    printf ("Parsed list (longs): "); CALL(printlist, show_long, lis1);
+	    pair_t* lis1= CALL(map, VOID(parse_long), lis);
+	    printf ("Parsed list (longs): "); CALL(printlist, VOID(show_long), lis1);
 		
 	    {
 		struct add_long_closure*inc = CALL(make_add_long, 1);
-		pair_t* lis2= CALL(map, inc, lis1);
-		printf ("Incremented list: "); CALL(printlist, show_long, lis2);
+		pair_t* lis2= CALL(map, VOID(inc), lis1);
+		printf ("Incremented list: "); CALL(printlist, VOID(show_long), lis2);
 		free(inc);
 		free_list(lis2);
 	    }

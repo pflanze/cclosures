@@ -86,17 +86,10 @@ struct Some_env {
     /* anything */
 };
 
-#define UNSAFECAST(type,val) (type)(val)
+#define CAST(type,val) (type)(val)
 
-/* cast between cclosure pointers safely, i.e. enforcing that their
-   proc fields match, while ignoring their env fields. */
-#define SAFECAST(cc_t,ccptr)						    \
-    ({									    \
-    typeof(ccptr) __safecast_val = (ccptr);				    \
-    cc_t __safecast_val2 = UNSAFECAST(cc_t, __safecast_val);		    \
-    __safecast_val2->proc = __safecast_val->proc; /* hopefully made noop */ \
-    __safecast_val2;				                            \
-    })
+#define VOID(val) CAST(void*,val)
+
 
 #define DEFINTERFACE(Name_t,Procreturntype,...)			\
     typedef struct Name_t##struct {				\
