@@ -88,7 +88,7 @@ struct Some_env {
 
 #define CAST(type,val) (type)(val)
 
-#define VOID(val) CAST(void*,val)
+#define V(val) CAST(void*,val)
 
 
 #define DEFINTERFACE(Name_t,Procreturntype,...)			\
