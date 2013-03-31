@@ -23,8 +23,8 @@ Use DEFINTERFACE to declare the 'type class' of a function/closure
 that you use in some place (like say the type of the functions
 accepted by a map function). This declares the type of the function
 pointer, but leaves its environment at a 'generic' "struct
-Some_env". SAFECAST casts one type of closure to another (possibly
-such a generic one) while still checking that the types of their procs
-matches at compile time.
+Some_env". Although I haven't found a way to let the compiler check
+the non-env parts only; to silence warnings, use the V macro to cast
+your function to the interface.
 
-See main.c for an example.
+See main.c for examples.
