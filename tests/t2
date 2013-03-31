@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eu
+
+tmp=`tempfile`
+trap 'rm "$tmp"' EXIT
+
+./main "1 " 2 3 > "$tmp"
+
+diff "$tmp" /dev/stdin <<EOF
+Original list (strings): [1 , 2, 3]
+Parsed list (longs): [1, 2, 3]
+Incremented list: [2, 3, 4]
+EOF
