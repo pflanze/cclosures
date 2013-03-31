@@ -1,3 +1,5 @@
+#ifndef _CCLOSURES_H
+#define _CCLOSURES_H
 
 #define STATIC static
 
@@ -100,3 +102,4 @@ struct Some_env {
 
 #define NEW(type) malloc(sizeof(type)) // ç
 
+#endif /*_CCLOSURES_H*/
