@@ -16,15 +16,16 @@ for the declaration and then IMPLN for the implementation of the
 function [same thing for CLOSURE missing yet?].
 
 Functions defined using DEFN/DECLN don't need to be
-instantiated. Closures are allocated/instantiated using LET_CLOSURE,
-or RETURN_CLOSURE. They are allocated using malloc.
+instantiated. Closures are allocated/instantiated on the heap using
+LET_CLOSURE, or RETURN_CLOSURE, or on the stack using ALLOC_CLOSURE
+and SET_CLOSURE.
 
 Use DEFINTERFACE to declare the 'type class' of a function/closure
 that you use in some place (like say the type of the functions
 accepted by a map function). This declares the type of the function
 pointer, but leaves its environment at a 'generic' "struct
-Some_env". Although I haven't found a way to let the compiler check
-the non-env parts only; to silence warnings, use the V macro to cast
-your function to the interface.
+Some_env". I haven't found a way to let the compiler check the proc
+part, ignoring differences in the env; so, to silence warnings, use
+the V macro to cast your function to void*.
 
 See main.c and list.c for examples.
